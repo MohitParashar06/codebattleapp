@@ -1,23 +1,38 @@
-import React from 'react'
 
-const NavBar = () => {
+
+const NavBar_M = () => {
   return (
-    <>
-      <div className='h-auto bg-[#2c2d2d] text-white text-2xl p-5 flex justify-between'>
-          <div className='main_Logo'>
-            <h1>code<span className='text-[#EA00FF]'>Construct</span></h1>
+    <nav className="bg-gray-800 py-2 px-8 shadow-md">
+      <div className="container mx-auto flex items-center justify-between">
+        <div className="flex-shrink-0">
+          <a href="/" className="text-3xl font-bold">
+            code<span className="text-purple-500">Construct</span>
+          </a>
+        </div>
+        <div className="hidden md:block">
+          <div className="flex items-center space-x-8">
+            {['Active Rooms', 'Problems', 'Contact', 'About Us'].map((item) => (
+              <a
+                key={item}
+                href="#"
+                className="text-md text-gray-300 hover:text-purple-500 transition duration-300"
+              >
+                {item}
+              </a>
+            ))}
           </div>
-          <div>
-            <ul className='flex justify-between items-center text-lg'>
-              <li className='mr-5'><a href='#'>Active Rooms</a></li>
-              <li className='mr-5'><a href='#'>Problems</a></li>
-              <li className='mr-5'><a href='#'>Contact</a></li>
-              <li className='mr-5'><a href='#'>About Us</a></li>
-            </ul>
-          </div>
+        </div>
+        <div className="md:hidden">
+          <button className="text-gray-300 hover:text-white focus:outline-none">
+            <svg className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
       </div>
-    </>
+    </nav>
   )
 }
 
-export default NavBar
+export default NavBar_M
+

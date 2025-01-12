@@ -1,32 +1,40 @@
-import React from 'react'
-// import createRoom_M from '../component/createRoom_M.JSX'
+import  { useState } from 'react'
+
 const BodyContent_M = () => {
+  const [difficulty, setDifficulty] = useState('easy')
+
   return (
-    <>
-      <div className='flex justify-around text-white w-[100vw] p-[1.5%]'>
-        <div className='create_Room'>
-            <div className='starting_Text text-5xl  text-wrap w-[50%] flex justify-center items-center h-[55vh]'>
-            <h1> <span >Code & Compete With Your</span>Code & Compete With Your <span className='text-[#EA00FF]'>Friends</span></h1>
+    <div className="flex flex-col items-center justify-center min-h-[calc(100vh-88px)] px-4">
+      <div className="text-center mb-12">
+        <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
+          Code & Compete With Your{' '}
+          <span className="text-purple-500">Friends</span>
+        </h1>
+        <p className="text-xl text-gray-300 max-w-2xl mx-auto">
+          Join coding challenges, solve problems, and improve your skills in a fun, collaborative environment.
+        </p>
+      </div>
+      <div className="w-full max-w-md">
+        <div className="bg-gray-800 rounded-lg p-8 shadow-lg">
+          <div className="flex flex-col space-y-4">
+            <select
+              className="w-full bg-gray-600 text-white border-none rounded-lg px-3 py-3 text-md"
+              value={difficulty}
+              onChange={(e) => setDifficulty(e.target.value)}
+            >
+              <option value="easy">Easy</option>
+              <option value="medium">Medium</option>
+              <option value="hard">Hard</option>
+            </select>
+            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg text-md transition duration-300">
+              Create Room
+            </button>
           </div>
-          <div className='create_Room_form w-[50%] flex justify-center items-center h
-          [55vh]'>
-              <div className='flex justify-between w-[100%] text-black bg-[#555555] boder-5 border-red-500 rounded-lg p-[1.5%]'>
-                <select className='w-[70%] bg-none border-none rounded-lg'>
-                  <option value="easy">Easy</option>
-                  <option value="medium">Medium</option>
-                  <option value="hard">Hard</option>
-                </select>
-                <button className='border-2 p-[1%] rounded-lg text-white bg-[#EA00FF]'>Create Room</button>
-                {/* <input type='submit'>Create Room</input> */}
-              </div>
-          </div>
-        </div> 
-        <div className='additional_Info  text-wrap w-[50%]'>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Distinctio voluptatum quos autem, dolorem, repudiandae deserunt nesciunt eaque fuga officia iure quaerat ipsa alias ab nobis voluptatem eos impedit exercitationem praesentium laborum, aperiam placeat? Sunt hic fugit cupiditate vitae, adipisci vero id tempora deleniti ab, commodi cum neque incidunt quidem impedit! Tenetur, voluptatum numquam. Blanditiis quasi rerum sint assumenda unde nam nemo iste dolorem animi cumque, pariatur deserunt atque, mollitia, sit soluta perspiciatis quis nihil provident? Assumenda ex possimus commodi repellat vero nam similique unde minus distinctio mollitia quibusdam accusamus cupiditate, rerum debitis. Sapiente nulla doloremque alias dignissimos pariatur, voluptas placeat necessitatibus! Sint perspiciatis, ex esse molestias veritatis corrupti adipisci reiciendis quos quibusdam dolorem maiores quis dolorum, quo, eaque a. Provident recusandae quisquam doloribus quidem, cupiditate quis asperiores illo earum. Molestiae, numquam eligendi sint quia repellendus, qui placeat adipisci ipsum odit, rerum maxime soluta alias ratione dolorem iure deleniti. Quos, voluptates!
         </div>
       </div>
-    </>
+    </div>
   )
 }
 
 export default BodyContent_M
+

@@ -1,18 +1,18 @@
-import React from 'react'
-import NavBar from './NavBar_M'
+
+import NavBar_M from './NavBar_M'
 import BodyContent_M from './BodyContent_M'
+
 const HomePage_M = () => {
   return (
-    <>
-      <div className='bg-black h-[100vh]'>
-      <NavBar></NavBar>
-      <div className='flex items-center justify-center h-[75vh]'>
-
-      <BodyContent_M></BodyContent_M>
-      </div>
-      </div>
-    </>
+    <div className="min-h-screen bg-gray-900 text-white">
+      <NavBar_M />
+      <main className="container mx-auto">
+        <BodyContent_M />
+      </main>
+    </div>
   )
 }
 
 export default HomePage_M
+
+
