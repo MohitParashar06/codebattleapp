@@ -6,7 +6,7 @@ const NavBar_M = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex-shrink-0">
           <a href="/" className="text-3xl font-bold">
-            code<span className="text-purple-500">Construct</span>
+            code<span className="text-[#EA00FF]">Construct</span>
           </a>
         </div>
         <div className="hidden md:block">
@@ -15,7 +15,7 @@ const NavBar_M = () => {
               <a
                 key={item}
                 href="#"
-                className="text-md text-gray-300 hover:text-purple-500 transition duration-300"
+                className="text-md text-gray-300 hover:text-[#EA00FF] transition duration-300"
               >
                 {item}
               </a>
