@@ -2,8 +2,12 @@ import React from 'react'
 import { toast } from "react-hot-toast"
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
 import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 import NavBar_M from './NavBar_M'
+import { signUpUser } from '../apicalls/userApi'
+
 const Signup_Page_K = () => {
+  const navigate = useNavigate()
     const [formData, setFormData] = useState({
         firstName: "",
         email: "",
@@ -22,7 +26,7 @@ const Signup_Page_K = () => {
           [e.target.name]: e.target.value,
         }))
       }
-      const handleOnSubmit = (e) => {
+      const handleOnSubmit = async (e) => {
         e.preventDefault()
     
         if (password !== confirmPassword) {
@@ -31,16 +35,32 @@ const Signup_Page_K = () => {
         }
         console.log("yes");
         const signupData = {
-          ...formData,
+          name:firstName,
+          email,
+          password
         }
         // console.log(signupData);
-        toast.success("Account Created Successfully")
         setFormData({
           firstName: "",
           email: "",
           password: "",
           confirmPassword: "",
         })
+        try {
+          const response = await signUpUser(signupData)
+          // console.log('response data is : ', response.status)
+          if(response.status === 200){
+            localStorage.setItem('token', response.data.jwtToken)
+            toast.success("Account Created Successfully")
+            navigate('/')
+          }
+          else{
+            toast.error(response.data.message)
+          }
+        } catch (error) {
+          toast.error('Some error occured!!!!')
+        }
+        
       }
   return (
 <div className="min-h-screen bg-gray-900 text-white">

@@ -8,7 +8,7 @@ const BodyContent_M = () => {
       <div className="text-center mb-12">
         <h1 className="text-5xl md:text-6xl font-bold leading-tight mb-6">
           Code & Compete With Your{' '}
-          <span className="text-purple-500">Friends</span>
+          <span className="text-[#EA00FF]">Friends</span>
         </h1>
         <p className="text-xl text-gray-300 max-w-2xl mx-auto">
           Join coding challenges, solve problems, and improve your skills in a fun, collaborative environment.
@@ -26,7 +26,7 @@ const BodyContent_M = () => {
               <option value="medium">Medium</option>
               <option value="hard">Hard</option>
             </select>
-            <button className="w-full bg-purple-600 hover:bg-purple-700 text-white font-bold py-3 px-4 rounded-lg text-md transition duration-300">
+            <button className="w-full bg-[#EA00FF] hover:text-[#EA00FF] hover:bg-white text-white font-bold py-3 px-4 rounded-lg text-md transition duration-300">
               Create Room
             </button>
           </div>

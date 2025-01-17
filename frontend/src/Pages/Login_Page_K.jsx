@@ -3,7 +3,10 @@ import toast from 'react-hot-toast'
 import { useState } from 'react'
 import NavBar_M from './NavBar_M'
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai"
+import { loginUser } from '../apicalls/userApi'
+import { useNavigate } from 'react-router-dom'
 const Login_Page_K = () => {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -20,9 +23,31 @@ const Login_Page_K = () => {
         }))
       }
     
-      const handleOnSubmit = (e) => {
+      const handleOnSubmit = async (e) => {
         e.preventDefault()
-        toast.success("Logged In")
+        const loginData = {
+          email: email,
+          password: password
+        }
+        // console.log('login data: ',loginData);
+
+        try{
+          const response = await loginUser(loginData)
+          // console.log('response is: ', response);
+          
+          if(response.status === 200){
+            localStorage.setItem('token', response.data.jwtToken)
+            toast.success(response.data.message)
+            navigate('/')
+
+          }else{
+            toast.error(response.data.message)
+          }
+          
+        }catch(err){
+          toast.error('Some error occured!!!')
+        }
+       
       }
   return (
     <div className="min-h-screen bg-gray-900 text-white">
