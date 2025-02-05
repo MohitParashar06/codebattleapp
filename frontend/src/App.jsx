@@ -5,6 +5,7 @@ import Login_Page_K from './Pages/Login_Page_K';
 import Signup_Page_K from './Pages/Signup_Page_K';
 import './App.css'
 import { Routes, Route} from "react-router-dom";
+import ListPage from './Pages/Practice_Page';
 const App = () => {
   return (
     <>
@@ -13,6 +14,7 @@ const App = () => {
       <Route path="/codeEditor" element={<CodeEditor_K /> } />
       <Route path="/signup" element={<Signup_Page_K/> } />
       <Route path="/Login" element={<Login_Page_K/> } />
+      <Route path='/practice' element={<ListPage/>}/>
     </Routes>
     </>
   )
