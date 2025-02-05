@@ -6,7 +6,7 @@ const NavBar_M = () => {
       <div className="container mx-auto flex items-center justify-between">
         <div className="flex-shrink-0">
           <a href="/" className="text-3xl font-bold">
-            code<span className="text-[#EA00FF]">Construct</span>
+            <span className="text-white">code</span><span className="text-[#EA00FF]">Construct</span>
           </a>
         </div>
         <div className="hidden md:block">
