@@ -12,7 +12,7 @@ const getProblemTitle = async(req,res)=>{
                 ques:[]
             }
             array.map((item)=>{
-                response.ques.push({title:item.title, accRate:item.acRate, diff:item.difficulty})
+                response.ques.push({id:item.questionFrontendId,title:item.title, acceptanceRatio:item.acRate, difficulty:item.difficulty})
             })
             return res.status(200).json({
                 data:response
@@ -25,7 +25,7 @@ const getProblemTitle = async(req,res)=>{
                 ques:[]
             }
             array.map((item)=>{
-                response.ques.push({title:item.title, accRate:item.acRate, diff:item.difficulty})
+                response.ques.push({id:item.questionFrontendId,title:item.title, acceptanceRatio:item.acRate, difficulty:item.difficulty})
             })
             return res.status(200).json({
                 data:response
@@ -37,7 +37,7 @@ const getProblemTitle = async(req,res)=>{
                 ques:[]
             }
             array.map((item)=>{
-                response.ques.push({title:item.title, accRate:item.acRate, diff:item.difficulty})
+                response.ques.push({id:item.questionFrontendId,title:item.title, acceptanceRatio:item.acRate, difficulty:item.difficulty})
             })
             return res.status(200).json({
                 data:response
