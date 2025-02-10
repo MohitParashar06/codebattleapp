@@ -54,6 +54,7 @@ export default function ListPage() {
     const fetchData = async () => {
       try {
         const response = await getTitle();
+        // console.log(response.data);
         setInitialData(response.data.ques);
       } catch (error) {
         console.log("Error occurred: ", error);
@@ -61,6 +62,7 @@ export default function ListPage() {
     };
     fetchData();
   }, []);
+
 
   const filteredAndSortedData = useMemo(() => {
     let filteredData = initialData.filter(
