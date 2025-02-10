@@ -10,3 +10,13 @@ export const getTitle = async()=>{
         return error.response
     }
 }
+
+export const getProblemWithGivenTitle=async(payload)=>{
+    try {
+        // console.log(payload);
+        const {data} = await axios.post("http://localhost:3000/api/problem/ques",payload)
+        return data
+    } catch (error) {
+        return error.response
+    }
+}

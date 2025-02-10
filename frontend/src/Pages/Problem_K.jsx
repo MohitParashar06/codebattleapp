@@ -3,6 +3,7 @@ import ProblemCard_K from './ProblemCard_K';
 import { useState } from 'react';
 const Problem_K = (props) => {
     const data=props.data
+
     const [Active,setActive]=useState("Problems")
   return (
     <div className='w-1/3 h-full flex flex-col'>
