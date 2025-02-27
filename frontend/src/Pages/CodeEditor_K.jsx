@@ -28,7 +28,7 @@ const CodeEditor_K = () => {
         <NavBar_M />
         <div className='flex w-full min-h-screen'>
             <Problem_K data={Data}></Problem_K>
-            <TextBox_K></TextBox_K>
+            {/* <TextBox_K></TextBox_K> */}
         </div>
       </div>
     </>
