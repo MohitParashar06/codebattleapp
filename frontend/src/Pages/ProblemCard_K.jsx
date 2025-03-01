@@ -6,7 +6,7 @@ const ProblemCard_K = (props) => {
   const data=props.data
   console.log(data)
   return (
-    <div className='bg-gray-800 w-full h-full text-white flex flex-col gap-5 pl-3 pt-3 pb-12 '>
+    <div className='bg-gray-800 w-full h-[100vh] overflow-scroll text-white flex flex-col gap-5 pl-3 pt-3 pb-12 rounded-md'>
         <div className='flex item-center text-xl font-bold'>
             <h1>1. {data.title}</h1>
             <div className='flex gap-x-3 items-center justify-center'>
