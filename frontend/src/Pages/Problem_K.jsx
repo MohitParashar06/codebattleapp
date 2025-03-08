@@ -1,132 +1,130 @@
-"use client"
+"use client";
 
-import { useState, useEffect } from "react"
-import { useLocation } from "react-router-dom"
-import { getProblemWithGivenTitle } from "../apicalls/ProblemApi"
-import { AiTwotoneLike, AiTwotoneDislike } from "react-icons/ai"
-import Editor from "@monaco-editor/react"
+import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
+import { getProblemWithGivenTitle } from "../apicalls/ProblemApi";
+import { LanguageDropdown } from "../constants/languagedropdown";
+import ProblemSection_M from "./ProblemSection_M";
+import CodeEditorSection_M from "./CodeEditorSection_M";
 
 const CodeEditor_K = () => {
-  const location = useLocation()
-  const title = location.search.slice(7).split("%20").join(" ")
-  const [data, setData] = useState({})
-  const [language, setLanguage] = useState("cpp")
-  const [code, setCode] = useState("// Start coding here...")
-  const [activeTab, setActiveTab] = useState("Problems")
-
+  const location = useLocation();
+  const title = location.search.slice(7).split("%20").join(" ");
+  const [data, setData] = useState({});
+  const [language, setLanguage] = useState(LanguageDropdown[0].name);
+  const [code, setCode] = useState("// Start coding here...");
+  const [activeTab, setActiveTab] = useState("Problems");
+  const [customInput, setCustomInput] = useState("");
+  const [outputDetails, setOutputDetails] = useState(null);
+  const [processing, setProcessing] = useState(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await getProblemWithGivenTitle({ title: title })
-        setData(response.message)
+        const response = await getProblemWithGivenTitle({ title: title });
+        setData(response.message);
       } catch (error) {
-        console.log("Error occurred: ", error)
+        console.log("Error occurred: ", error);
       }
-    }
-    fetchData()
-  }, [title])
+    };
+    fetchData();
+  }, [title]);
 
-  const handleEditorChange = (value) => {
-    if (value !== undefined) {
-      setCode(value)
-    }
-  }
+  const handleEditorChange = (e) => {
+   console.log("This is the code value",e.target);
+  };
 
   const handleLanguageChange = (e) => {
-    setLanguage(e.target.value)
-  }
+    setLanguage(e.value);
+  };
+
+  const  handleCompile = async () => {
+    setProcessing(true);
+    const sentData = {
+      language_id: language.id,
+      source_code: btoa(code),
+      stdin: btoa(customInput),
+    };
+
+    // console.log("This is the sentdata",sentData);
+
+    const url = import.meta.env.VITE_RAPID_API_URL;
+    const host  = import.meta.env.VITE_RAPID_API_HOST;
+    const key = import.meta.env.VITE_RAPID_API_KEY;
+
+    const options = {
+      method: "POST",
+      url: url,
+      params: { base64_encoded: "true", fields: "*" },
+      headers: {
+        "content-type": "application/json",
+        "Content-Type": "application/json",
+        "X-RapidAPI-Host":host ,
+        "X-RapidAPI-Key": key,
+      },
+      data: sentData,
+    };
+    
+    try {
+      const response = await fetch(url, options);
+      const result = await response.text();
+      console.log(result);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div className="min-h-screen w-[100vw] bg-gray-900 text-white flex flex-col">
       {/* <NavBar_M /> */}
-      <div className="flex flex-1 overflow-hidden">
-        <ProblemSection data={data} activeTab={activeTab} setActiveTab={setActiveTab} />
-        <CodeEditorSection
-          language={language}
-          code={code}
-          handleEditorChange={handleEditorChange}
-          handleLanguageChange={handleLanguageChange}
+      <div className="flex flex-row overflow-hidden">
+        <ProblemSection_M
+          data={data}
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
         />
-      </div>
-    </div>
-  )
-}
-
-const ProblemSection = ({ data, activeTab, setActiveTab }) => {
-  return (
-    <div className="flex-shrink flex-grow-0 max-w-[45vw] flex flex-col overflow-hidden">
-      <div className="bg-gray-800 border-b border-gray-700 p-4 flex items-center space-x-8">
-        {["Problems", "Submissions", "Solution"].map((item) => (
-          <button
-            key={item}
-            onClick={() => setActiveTab(item)}
-            className={`text-md transition duration-300 ${
-              activeTab === item ? "text-purple-500" : "text-gray-300 hover:text-purple-500"
-            }`}
-          >
-            {item}
-          </button>
-        ))}
-      </div>
-      <div className="flex-1 overflow-auto p-6">
-        <div className="flex items-center justify-between mb-4">
-          <h1 className="text-2xl font-bold">1. {data.title}</h1>
-          <div className="flex items-center space-x-4">
-            <AiTwotoneLike className="text-xl cursor-pointer" />
-            <AiTwotoneDislike className="text-xl cursor-pointer" />
+        <div className="flex flex-col h-full">
+          <div className="h-3/4">
+            <CodeEditorSection_M
+              language={language}
+              code={code}
+              handleEditorChange={handleEditorChange}
+              handleLanguageChange={handleLanguageChange}
+            />
+          </div>
+          <div className="h-1/4 text-white flex flex-col m-2">
+            <div className="text-right">
+              <div>
+                <button
+                  onClick={handleCompile}
+                  disabled={!code}
+                  className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-md text-sm transition-colors mr-6"
+                >
+                  {processing ? "processing.." : "Compile and Run"}
+                </button>
+                <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-md text-sm transition-colors mr-3">
+                  Submit
+                </button>
+              </div>
+            </div>
+            <div className="flex flex-row h-3/4 m-2">
+              <div className="bg-gray-950 h-full w-1/2 border rounded-md">
+                <p className="text-white ml-2 text-md">Input</p>
+                <textarea
+                  value={customInput}
+                  onChange={(e) => setCustomInput(e.target.value)}
+                  className="h-3/4 w-[95%] ml-2 m-auto bg-gray-900 text-white rounded-md "
+                ></textarea>
+              </div>
+              <div className="bg-black h-full w-1/2 border rounded-md">
+                <p className="text-white ml-2 text-md">Output</p>
+                <textarea className="h-3/4 w-[95%] ml-2 m-auto bg-gray-900 text-white rounded-md"></textarea>
+              </div>
+            </div>
           </div>
         </div>
-        <div dangerouslySetInnerHTML={{ __html: data.content }} className="prose prose-invert max-w-none" />
       </div>
     </div>
-  )
-}
+  );
+};
 
-const CodeEditorSection = ({ language, code, handleEditorChange, handleLanguageChange }) => {
-  return (
-    <div className="flex-grow min-w-[55vw] flex flex-col border-l border-gray-700">
-      <div className="bg-gray-800 border-b border-gray-700 p-4 flex justify-between items-center">
-        <select
-          value={language}
-          onChange={handleLanguageChange}
-          className="bg-gray-700 text-white px-3 py-1 rounded-md text-sm focus:outline-none focus:ring-2 focus:ring-purple-500"
-        >
-          <option value="cpp">C++</option>
-          <option value="javascript">JavaScript</option>
-          <option value="python">Python</option>
-          <option value="java">Java</option>
-          <option value="csharp">C#</option>
-        </select>
-        <div>
-          <button className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-1 rounded-md text-sm transition-colors mr-2">
-            Run Code
-          </button>
-          <button className="bg-green-600 hover:bg-green-700 text-white px-4 py-1 rounded-md text-sm transition-colors">
-            Submit
-          </button>
-        </div>
-      </div>
-      <div className="flex-1">
-        <Editor
-          height="100%"
-          language={language}
-          value={code}
-          onChange={handleEditorChange}
-          theme="vs-dark"
-          options={{
-            minimap: { enabled: false },
-            scrollBeyondLastLine: false,
-            fontSize: 14,
-            wordWrap: "on",
-            automaticLayout: true,
-            tabSize: 2,
-            lineNumbers: "on",
-          }}
-        />
-      </div>
-    </div>
-  )
-}
-
-export default CodeEditor_K
-
+export default CodeEditor_K;
