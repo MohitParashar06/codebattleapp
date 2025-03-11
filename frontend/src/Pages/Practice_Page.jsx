@@ -90,6 +90,8 @@ export default function ListPage() {
   };
   const handleOnClick = (title)=>{
     try{
+      console.log('hello', title);
+      
         navigate(`/codeEditor?title=${title}`);
     }catch(err){
         toast.error('Error Occured !!')
