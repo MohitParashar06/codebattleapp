@@ -4,6 +4,8 @@ import { getProblemWithGivenTitle } from "../apicalls/ProblemApi";
 import { LanguageDropdown } from "../constants/languagedropdown";
 import ProblemSection_M from "./ProblemSection_M";
 import CodeEditorSection_M from "./CodeEditorSection_M";
+// import AiHelpSidebar from "./AiHelpSidebar";
+import AiHelpSidebar from "./AiSlidehelper";
 import axios from "axios";
 
 const CodeEditor_K = () => {
@@ -17,6 +19,9 @@ const CodeEditor_K = () => {
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
+
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
 
   const url = import.meta.env.VITE_RAPID_API_URL;
   const host = import.meta.env.VITE_RAPID_API_HOST;
@@ -73,7 +78,7 @@ const CodeEditor_K = () => {
 
   const handleCompile = async () => {
     setProcessing(true);
-    setOutputDetails(null); // clear previous output
+    setOutputDetails(null);
 
     const dataToSend = {
       language_id: langId,
@@ -108,12 +113,12 @@ const CodeEditor_K = () => {
       const finalResult = await getSubmission(token);
 
       if (finalResult) {
-        setOutputDetails(finalResult); // ✅ Set output details for UI
+        setOutputDetails(finalResult);
 
         if (finalResult.status_id === 11) {
-          console.error(" Runtime Error:", atob(finalResult.stderr || ""));
+          console.error("Runtime Error:", atob(finalResult.stderr || ""));
         } else if (finalResult.status_id === 6) {
-          console.error(" Compilation Error:", atob(finalResult.compile_output || ""));
+          console.error("Compilation Error:", atob(finalResult.compile_output || ""));
         } else {
           console.log("✅ Execution Output:", atob(finalResult.stdout || ""));
         }
@@ -143,6 +148,15 @@ const CodeEditor_K = () => {
 
   return (
     <div className="min-h-screen w-[100vw] bg-gray-900 text-white flex flex-col">
+      {/* Toggle Button */}
+      <button
+        className="fixed top-4 right-4 z-50 bg-purple-600 hover:bg-purple-700 px-3 py-2 rounded-md text-sm"
+        onClick={toggleSidebar}
+      >
+        🧠 AI Help
+      </button>
+
+      {/* Main UI */}
       <div className="flex flex-row overflow-hidden">
         <ProblemSection_M
           data={data}
@@ -192,6 +206,9 @@ const CodeEditor_K = () => {
           </div>
         </div>
       </div>
+
+      {/* AI Help Sidebar */}
+      <AiHelpSidebar isOpen={isSidebarOpen} toggleSidebar={toggleSidebar} />
     </div>
   );
 };
