@@ -1,0 +1,9 @@
+[
+  { "title": "Two Sum", "difficulty": "easy" },
+  { "title": "Palindrome Number", "difficulty": "easy" },
+  { "title": "Add Two Numbers", "difficulty": "medium" },
+  { "title": "Longest Substring Without Repeating Characters", "difficulty": "medium" },
+  { "title": "ZigZag Conversion", "difficulty": "medium" },
+  { "title": "Median of Two Sorted Arrays", "difficulty": "hard" },
+  { "title": "Regular Expression Matching", "difficulty": "hard" }
+]

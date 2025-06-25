@@ -4,6 +4,7 @@ import CodeEditor_K from './Pages/CodeEditor_K';
 import Login_Page_K from './Pages/Login_Page_K';
 import Signup_Page_K from './Pages/Signup_Page_K';
 import './App.css'
+import RoomPage from './Pages/RoomPage';
 import { Routes, Route} from "react-router-dom";
 import ListPage from './Pages/Practice_Page';
 const App = () => {
@@ -15,6 +16,7 @@ const App = () => {
       <Route path="/signup" element={<Signup_Page_K/> } />
       <Route path="/Login" element={<Login_Page_K/> } />
       <Route path='/practice' element={<ListPage/>}/>
+      <Route path="/room/:roomId" element={<RoomPage />} />
     </Routes>
     </>
   )
