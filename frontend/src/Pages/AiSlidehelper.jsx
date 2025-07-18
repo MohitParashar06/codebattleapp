@@ -4,7 +4,7 @@ const AiHelpSidebar = ({ isOpen, toggleSidebar }) => {
   const [question, setQuestion] = useState("");
   const [response, setResponse] = useState("");
   const [loading, setLoading] = useState(false);
-
+  const KEY = import.meta.env.GROQ_API_KEY;
   const handleAskAI = async () => {
     if (!question.trim()) return;
 
@@ -16,7 +16,7 @@ const AiHelpSidebar = ({ isOpen, toggleSidebar }) => {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer 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`,
+          Authorization: `Bearer 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`,
         },
         body: JSON.stringify({
           model: "llama3-70b-8192", 
